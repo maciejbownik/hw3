@@ -150,7 +150,7 @@ void Heap<T,PComparator>::pop()
   }
   std::swap(items_[0], items_[items_.size() -1]);
   items_.pop_back();
-  heapify(0);
+  if(!empty()) heapify(0);
 
 }
 
