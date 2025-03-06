@@ -60,7 +60,6 @@ public:
    */
   size_t size() const;
 
-  void heapify(size_t index);
 
 private:
   /// Add whatever helper functions and data members you need below
@@ -75,30 +74,6 @@ private:
 };
 
 // Add implementation of member functions here
-/*
-template<typename T, typename PComparator>
-void Heap<T, PComparator>::heapify(size_t index) {
-  if( index > 0){
-    size_t parent = (index - 1) / mary_;
-    if(comparator_(items_[index], items_[parent])){
-      std::swap(items_[index], items_[parent]);
-      heapify(parent);
-    } 
-  } else {
-      size_t better = index;
-      for(int i = 1; i <= mary_; i++) {
-        size_t child = mary_ * index + i;
-        if((child < items_.size()) and (comparator_(items_[child], items_[better]))) {
-          better = child;
-        }
-      }
-      if (better != index) {
-        std::swap(items_[index], items_[better]);
-        heapify(better);
-      }
-    }
-}
-*/
 
 template<typename T, typename PComparator>
 Heap<T, PComparator>::Heap(int m, PComparator c) : mary_(m), comparator_(c) {}
@@ -175,7 +150,7 @@ void Heap<T,PComparator>::pop()
 		for(size_t i = 0; i < mary_; i++){
 			size_t child = mary_ * curr + 1 + i;
 
-			if((child < items_.size()) and comparator_(items_[child, items_[best]])){
+			if((child < items_.size()) && comparator_(items_[child], items_[best])){
 				best = child;
 			}
 		}
