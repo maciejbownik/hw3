@@ -102,11 +102,7 @@ template<typename T, typename PComparator>
 Heap<T, PComparator>::Heap(int m, PComparator c) : mary_(m), comparator_(c) {}
 
 template<typename T, typename PComparator>
-Heap<T, PComparator>::~Heap() {
-	while(!empty()){
-		pop();
-	}
-}
+Heap<T, PComparator>::~Heap() {}
 
 template<typename T, typename PComparator>
 void Heap<T, PComparator>::push(const T& item){
@@ -167,7 +163,27 @@ void Heap<T,PComparator>::pop()
   }
   std::swap(items_[0], items_[items_.size() -1]);
   items_.pop_back();
-  if(!empty()) heapify(0);
+  
+	size_t curr = 0;
+
+	while(true)
+	{
+		size_t best = curr;
+
+		for(size_t i = 0; i < mary_; i++){
+			size_t child = m_ * curr + 1 + i;
+
+			if((child < items_.size()) and comparator_(items_[child, items_[best]])){
+				best = child;
+			}
+		}
+		if(best == curr){
+			break;
+		}
+
+		std::swap(items_[curr], items_[best]);
+		curr = best;
+	}
 
 }
 
