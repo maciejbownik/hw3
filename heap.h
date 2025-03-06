@@ -111,7 +111,20 @@ Heap<T, PComparator>::~Heap() {
 template<typename T, typename PComparator>
 void Heap<T, PComparator>::push(const T& item){
   items_.push_back(item);
-  heapify(items_.size() -1);
+  size_t curr = item_.size()-1;
+
+	while(curr > 0)
+	{
+		size_t parent = (curr -1)/mary_;
+
+		if(comparator_(items_[curr], items_[parent])){
+			std::swap(items_[curr], items_[parent]);
+			curr = parent;
+		}
+		else{
+			break;
+		}
+	}
 }
 
 
