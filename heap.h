@@ -102,7 +102,11 @@ template<typename T, typename PComparator>
 Heap<T, PComparator>::Heap(int m, PComparator c) : mary_(m), comparator_(c) {}
 
 template<typename T, typename PComparator>
-Heap<T, PComparator>::~Heap() {}
+Heap<T, PComparator>::~Heap() {
+	while(!empty()){
+		pop();
+	}
+}
 
 template<typename T, typename PComparator>
 void Heap<T, PComparator>::push(const T& item){
