@@ -2,6 +2,7 @@
 #define HEAP_H
 #include <functional>
 #include <stdexcept>
+#include <vector>
 
 template <typename T, typename PComparator = std::less<T> >
 class Heap
@@ -59,8 +60,14 @@ public:
    */
   size_t size() const;
 
+  void heapify(size_t index);
+
 private:
   /// Add whatever helper functions and data members you need below
+  std::vector<T> items_;
+  int mary_;
+  PComparator comparator_;
+
 
 
 
@@ -68,6 +75,40 @@ private:
 };
 
 // Add implementation of member functions here
+template<typename T, typename PComparator>
+void Heap<T, PComparator>::heapify(size_t index) {
+  if( index > 0){
+    size_t parent = (index - 1) / mary_;
+    if(comparator_(items_[index], items_[parent])){
+      std::swap(items_[index], items_[parent]);
+      heapify(parent);
+    } 
+  } else {
+      size_t better = index;
+      for(int i = 1; i < mary_; i++) {
+        size_t child = mary_ * index + i;
+        if((child < items_.size()) and (comparator_(items_[child], items_[better]))) {
+          better = child;
+        }
+      }
+      if (better != index) {
+        std::swap(items_[index], items_[better]);
+        heapify(better);
+      }
+    }
+}
+
+template<typename T, typename PComparator>
+Heap<T, PComparator>::Heap(int m, PComparator c) : mary_(m), comparator_(c) {}
+
+template<typename T, typename PComparator>
+Heap<T, PComparator>::~Heap() {}
+
+template<typename T, typename PComparator>
+void Heap<T, PComparator>::push(const T& item){
+  items_.push_back(item);
+  heapify(items_.size() -1);
+}
 
 
 // We will start top() for you to handle the case of 
@@ -81,11 +122,13 @@ T const & Heap<T,PComparator>::top() const
     // ================================
     // throw the appropriate exception
     // ================================
+    throw std::underflow_error("empty");
 
 
   }
   // If we get here we know the heap has at least 1 item
   // Add code to return the top element
+  return(items_[0]);
 
 
 
@@ -101,12 +144,24 @@ void Heap<T,PComparator>::pop()
     // ================================
     // throw the appropriate exception
     // ================================
+    throw std::underflow_error("error");
 
 
   }
+  std::swap(items_[0], items_[items_.size() -1]);
+  items_.pop_back();
+  heapify(0);
 
+}
 
+template <typename T, typename PComparator>
+bool Heap<T, PComparator>::empty() const {
+  return items_.empty();
+}
 
+template <typename T, typename PComparator>
+size_t Heap<T, PComparator>::size() const {
+  return items_.size();
 }
 
 
