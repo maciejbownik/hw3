@@ -109,7 +109,7 @@ Heap<T, PComparator>::~Heap() {}
 template<typename T, typename PComparator>
 void Heap<T, PComparator>::push(const T& item){
   items_.push_back(item);
-  size_t curr = item_.size()-1;
+  size_t curr = items_.size()-1;
 
 	while(curr > 0)
 	{
@@ -173,7 +173,7 @@ void Heap<T,PComparator>::pop()
 		size_t best = curr;
 
 		for(size_t i = 0; i < mary_; i++){
-			size_t child = m_ * curr + 1 + i;
+			size_t child = mary_ * curr + 1 + i;
 
 			if((child < items_.size()) and comparator_(items_[child, items_[best]])){
 				best = child;
