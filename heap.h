@@ -75,6 +75,7 @@ private:
 };
 
 // Add implementation of member functions here
+/*
 template<typename T, typename PComparator>
 void Heap<T, PComparator>::heapify(size_t index) {
   if( index > 0){
@@ -97,6 +98,7 @@ void Heap<T, PComparator>::heapify(size_t index) {
       }
     }
 }
+*/
 
 template<typename T, typename PComparator>
 Heap<T, PComparator>::Heap(int m, PComparator c) : mary_(m), comparator_(c) {}
@@ -157,7 +159,7 @@ void Heap<T,PComparator>::pop()
     // ================================
     // throw the appropriate exception
     // ================================
-    throw std::underflow_error("error");
+    throw std::underflow_error("empty");
 
 
   }
