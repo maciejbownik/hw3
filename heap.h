@@ -85,7 +85,7 @@ void Heap<T, PComparator>::heapify(size_t index) {
     } 
   } else {
       size_t better = index;
-      for(int i = 1; i < mary_; i++) {
+      for(int i = 1; i <= mary_; i++) {
         size_t child = mary_ * index + i;
         if((child < items_.size()) and (comparator_(items_[child], items_[better]))) {
           better = child;
